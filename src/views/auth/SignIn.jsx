@@ -5,22 +5,40 @@ import Checkbox from "components/checkbox";
 //import { GoogleLogin  } from '@react-oauth/google';
 import axios from 'axios';
 import { GoogleLogin, googleLogout, useGoogleLogin } from '@react-oauth/google'
+import { useNavigate } from "react-router-dom"
 
 const responseOutput = (response) => {
-  console.log(response);
+  console.log("Success", response);
 };
 const errorOutput = (error) => {
-  console.log(error);
+  console.log("Error", error);
 };
 
 export default function SignIn() {
+
+  const navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState([]);
   const [profileInfo, setProfileInfo] = useState([]);
 
   const login = useGoogleLogin({
-    onSuccess: (response) => setUserInfo(response),
-    onError: (error) => console.log(`Login Failed: ${error}`,)
+
+    onSuccess: async (response) => {
+      try {
+        const res = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
+          headers: {
+            Authorization: `Bearer ${response.access_token}`
+          },
+        })
+        if (res) {
+          localStorage.setItem("userInfo", JSON.stringify(res.data))
+          console.log(res.data)
+          navigate("/admin")
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
   });
 
   const logOut = () => {
@@ -29,30 +47,30 @@ export default function SignIn() {
   };
 
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
-  const fetchData = async () => {
-    if (userInfo) {
-      // const result = await axios.get("https://api.chucknorris.io/jokes/random");
-      // console.log(result.data.value);
+  // const fetchData = async () => {
+  //   if (userInfo) {
+  //     // const result = await axios.get("https://api.chucknorris.io/jokes/random");
+  //     // console.log(result.data.value);
 
-      axios
-        .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${userInfo.access_token}`, {
-          headers: {
-            Authorization: `Bearer ${userInfo.access_token}`,
-            Accept: 'application/json'
-          }
-        })
-        .then((res) => {
-          console.log("Got User Pofile")
-          console.log(res.data);
-          setProfileInfo(res.data.value);
-        })
-        .catch((err) => console.log(err));
-      }    
-  };
+  //     axios
+  //       .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${userInfo.access_token}`, {
+  //         headers: {
+  //           Authorization: `Bearer ${userInfo.access_token}`,
+  //           Accept: 'application/json'
+  //         }
+  //       })
+  //       .then((res) => {
+  //         console.log("Got User Pofile")
+  //         console.log(res.data);
+  //         setProfileInfo(res.data.value);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // };
 
 
   return (
@@ -66,7 +84,11 @@ export default function SignIn() {
           Enter your email and password to sign in!
         </p>
 
-        <GoogleLogin onSuccess={responseOutput} onError={errorOutput} />
+        {/* <GoogleLogin onSuccess={responseOutput} onError={errorOutput} /> */}
+        <button onClick={() => login()} className="border-2 p-2 rounded-md flex items-center space-x-2">
+          <img width="30" height="30" src="https://img.icons8.com/color/30/google-logo.png" alt="google-logo" />
+          <span>Sign in with Google</span>
+        </button>
 
         <div className="mb-6 flex items-center  gap-3">
           <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
