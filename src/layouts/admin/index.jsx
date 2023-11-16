@@ -4,18 +4,28 @@ import Navbar from "components/navbar";
 import Sidebar from "components/sidebar";
 import Footer from "components/footer/Footer";
 import routes from "routes.js";
+import { useNavigate } from "react-router-dom";
 
 export default function Admin(props) {
   const { ...rest } = props;
   const location = useLocation();
   const [open, setOpen] = React.useState(true);
   const [currentRoute, setCurrentRoute] = React.useState("Main Dashboard");
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const userInfoString = localStorage.getItem("userInfo");
+    console.log(userInfoString);
+    if(!userInfoString) navigate("/auth");
+  }, []);   //Runs only on the first render
+
 
   React.useEffect(() => {
     window.addEventListener("resize", () =>
       window.innerWidth < 1200 ? setOpen(false) : setOpen(true)
     );
   }, []);
+  
   React.useEffect(() => {
     getActiveRoute(routes);
   }, [location.pathname]);
