@@ -1,5 +1,6 @@
 [
   {
+    "id":1,
     "name": "Jo Smith",
     "name_spouse": "Helen Smith",
     "birth_date": "12.Jan.2021",
@@ -7,6 +8,31 @@
     "end_date": "Age 95",
     "tax_rate": "17.5",
     "pir_rate": "18",
-    "investment_assets": "$1,000,000"
+    "investment_assets": "$1,000,000",
+    "actions": { "actionType": "edit", "actionLabel": "Edit" }
+  },
+  {
+    "id":2,
+    "name": "Alex Giul",
+    "name_spouse": "Marin Vac",
+    "birth_date": "12.Jan.2021",
+    "birth_date_2": "12.Jan.2011",
+    "end_date": "Age 95",
+    "tax_rate": "17.5",
+    "pir_rate": "18",
+    "investment_assets": "$2,000,000"    ,
+    "actions": { "actionType": "edit", "actionLabel": "Edit" }
+  },
+  {
+    "id":3,
+    "name": "John Doe",
+    "name_spouse": "Susane Sneider",
+    "birth_date": "12.Jan.2021",
+    "birth_date_2": "12.Jan.2011",
+    "end_date": "Age 95",
+    "tax_rate": "17.5",
+    "pir_rate": "18",
+    "investment_assets": "$-1,000,000",
+    "actions": { "actionType": "edit", "actionLabel": "Edit" }
   }
 ]

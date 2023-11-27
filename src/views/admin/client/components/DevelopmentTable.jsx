@@ -1,8 +1,9 @@
 import CardMenu from "components/card/CardMenu";
 import Card from "components/card";
-import { DiApple } from "react-icons/di";
-import { DiAndroid } from "react-icons/di";
-import { DiWindows } from "react-icons/di";
+
+import {
+  MdCreate, MdCancel
+} from "react-icons/md";
 
 import React, { useMemo } from "react";
 import {
@@ -14,10 +15,22 @@ import {
 import Progress from "components/progress";
 
 const DevelopmentTable = (props) => {
-  const { columnsData, tableData } = props;
+  const { columnsData, tableData, onActionEditButtonClick, onActionDeleteButtonClick  } = props;
 
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
+
+  const handleEditButtonClick = (row) => {
+    //console.log(row);
+    // Call the callback function with the action data    
+    onActionEditButtonClick(row);
+  };
+
+  const handleDeleteButtonClick = (row) => {
+    //console.log(row);
+    // Call the callback function with the action data    
+    onActionDeleteButtonClick(row);
+  };
 
   const tableInstance = useTable(
     {
@@ -34,10 +47,14 @@ const DevelopmentTable = (props) => {
     getTableBodyProps,
     headerGroups,
     page,
+    rows,
     prepareRow,
     initialState,
   } = tableInstance;
+  
   initialState.pageSize = 11;
+  
+
 
   return (
     <Card extra={"w-full h-full p-4"}>
@@ -60,12 +77,13 @@ const DevelopmentTable = (props) => {
             {headerGroups.map((headerGroup, index) => (
               <tr {...headerGroup.getHeaderGroupProps()} key={index}>
                 {headerGroup.headers.map((column, index) => (
-                  <th
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                  
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())} 
+                   style={{ display: column.isVisible ? 'table-cell' : 'none' }} 
                     className="border-b border-gray-200 pr-32 pb-[10px] text-start dark:!border-navy-700 "
                     key={index}
                   >
-                    <div className="text-xs font-bold tracking-wide text-gray-600">
+                    <div className="text-xs font-bold tracking-wide text-gray-600">                    
                       {column.render("Header")}
                     </div>
                   </th>
@@ -74,20 +92,32 @@ const DevelopmentTable = (props) => {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {page.map((row, index) => {
+            {rows.map((row, index) => {
               
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()} key={index}>
                   {row.cells.map((cell, index) => {
+                    let data = ""
+
+                    if (cell.column.Header === "Actions") {
+                      data = (
+                          <div className="flex items-center gap-2">
+                            <button onClick={() => handleEditButtonClick(row.original)}><MdCreate className="text-blue-500 h-6 w-6"/> </button>
+                            <button onClick={() => handleDeleteButtonClick(row.original)}><MdCancel className="text-red-500 h-6 w-6"/> </button>                          
+                          </div>);
+                      
+                    }
+                    else
+                      data = cell.render('Cell')
 
                     return (
                       <td
                         {...cell.getCellProps()}
-                        key={index}
+                        key={index} style={{ display: columns[index].isVisible ? 'table-cell' : 'none' }} 
                         className="pt-[14px] pb-3 text-[14px]"
                       >
-                        {cell.value}
+                          {data}
                       </td>
                     );
                   })}
