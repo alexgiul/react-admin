@@ -61,8 +61,10 @@ const DevelopmentTable = (props) => {
       <div class="relative flex items-center justify-between">
         <div class="text-xl font-bold text-navy-700 dark:text-white">
           Clients
-        </div>
-        <CardMenu />
+        </div>        
+        <button className="linear rounded-[20px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20">
+          Add new record
+        </button>
       </div>
 
       <div class="h-full overflow-x-scroll xl:overflow-x-hidden">
