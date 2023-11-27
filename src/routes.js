@@ -3,6 +3,7 @@ import React from "react";
 // Admin Imports
 import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
+import Client from "views/admin/client";
 import Profile from "views/admin/profile";
 import DataTables from "views/admin/tables";
 import RTLDefault from "views/rtl/default";
@@ -27,6 +28,15 @@ const routes = [
     icon: <MdHome className="h-6 w-6" />,
     component: <MainDashboard />,
   },
+
+  {
+    name: "Clients",
+    layout: "/admin",
+    path: "clients",
+    icon: <MdPerson className="h-6 w-6" />,
+    component: <Client />,
+  },
+
   {
     name: "NFT Marketplace",
     layout: "/admin",

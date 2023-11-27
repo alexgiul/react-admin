@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Jo Smith",
+    "name_spouse": "Helen Smith",
+    "birth_date": "12.Jan.2021",
+    "birth_date_2": "12.Jan.2011",
+    "end_date": "Age 95",
+    "tax_rate": "17.5",
+    "pir_rate": "18",
+    "investment_assets": "$1,000,000"
+  }
+]
