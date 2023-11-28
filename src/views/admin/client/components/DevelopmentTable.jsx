@@ -12,7 +12,7 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import AddNewRecordDrawer from "components/drawer";
+import AddNewRecordDrawer from "components/AddRecordDrawer";
 
 const DevelopmentTable = (props) => {
   const { columnsData, tableData, onActionEditButtonClick, onActionDeleteButtonClick, setSideDrawerOpen } = props;
