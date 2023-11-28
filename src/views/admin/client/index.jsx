@@ -4,14 +4,12 @@ import Notification from "./components/Notification";
 import Project from "./components/Project";
 import Storage from "./components/Storage";
 import Upload from "./components/Upload";
-
-
+import React from "react";
 import {
   columnsDataDevelopment,
 } from "./variables/columnsData";
 import tableDataDevelopment from "./variables/tableDataDevelopment.json";
 import DevelopmentTable from "./components/DevelopmentTable";
-
 import Form from "components/form";
 // chakra
 
@@ -36,30 +34,18 @@ const fields = [
   }
 ];
 
-const handleEditButtonClick = (row) => {
-  // Handle the button click based on the action data
-  console.log(`Button clicked for action type edit`);
-};
-
-const handleDeleteButtonClick = (row) => {
-  // Handle the button click based on the action data
-  console.log(`Button clicked for action type delete`);
-};
 
 
 const ClientOverview = () => {
   return (
     <div className="flex w-full flex-col gap-5">
-      <div className="mt-5  h-full">
+      <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
         <DevelopmentTable
           columnsData={columnsDataDevelopment}
           tableData={tableDataDevelopment}
-          onActionEditButtonClick={handleEditButtonClick}
-          onActionDeleteButtonClick={handleDeleteButtonClick}
         />
       </div>
-
-      <div className="flex w-full flex-col gap-5">
+      <div className="flex w-full flex-col gap-5 z-0">
         <Form icon={<MdChevronLeft className="ml-1 h-6 w-6 " />} title="Test" subtitle="Sub title" fields={fields} />        
       </div>
 

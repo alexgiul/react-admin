@@ -12,10 +12,10 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import Progress from "components/progress";
+import AddNewRecordDrawer from "components/drawer";
 
 const DevelopmentTable = (props) => {
-  const { columnsData, tableData, onActionEditButtonClick, onActionDeleteButtonClick  } = props;
+  const { columnsData, tableData, onActionEditButtonClick, onActionDeleteButtonClick, setSideDrawerOpen } = props;
 
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
@@ -62,9 +62,7 @@ const DevelopmentTable = (props) => {
         <div class="text-xl font-bold text-navy-700 dark:text-white">
           Clients
         </div>        
-        <button className="linear rounded-[20px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20">
-          Add new record
-        </button>
+        <AddNewRecordDrawer buttonText='Add a new record'/>
       </div>
 
       <div class="h-full overflow-x-scroll xl:overflow-x-hidden">
