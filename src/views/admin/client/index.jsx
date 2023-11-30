@@ -13,7 +13,7 @@ import DevelopmentTable from "./components/DevelopmentTable";
 import Form from "components/form";
 // chakra
 
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { MdChevronLeft } from "react-icons/md";
 import InputField from "components/fields/InputField";
 import TextField from "components/fields/InputField";
 import Checkbox from "components/checkbox";
@@ -39,7 +39,7 @@ const fields = [
 const ClientOverview = () => {
   return (
     <div className="flex w-full flex-col gap-5">
-      <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
+      <div className="mt-5  h-full">
         <DevelopmentTable
           columnsData={columnsDataDevelopment}
           tableData={tableDataDevelopment}

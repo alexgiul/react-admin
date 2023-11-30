@@ -10,7 +10,9 @@ import {
 } from '@chakra-ui/react'
 
 import React, { useState } from 'react'
-const AddNewRecordDrawer=({buttonText})=> {
+
+
+const AddNewRecordDrawer = ({ buttonText }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
     const [titleInput, setTitleInput] = useState('');
@@ -19,6 +21,7 @@ const AddNewRecordDrawer=({buttonText})=> {
     const [categorySelect, setCategorySelect] = useState('');
     const [assocContactSelect, setAssocContactSelect] = useState('');
     const [assocCompanySelect, setAssocCompanySelect] = useState('');
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const addClientObject = {
@@ -29,16 +32,20 @@ const AddNewRecordDrawer=({buttonText})=> {
             'company': assocCompanySelect,
             'notes': notesInput
         }
-        if(notesInput!=='' &&  ownerSelect!=='' && categorySelect!=='', assocContactSelect!=='' &&  assocCompanySelect!==''){
+        if (notesInput !== '' && ownerSelect !== '' && categorySelect !== '' && assocContactSelect !== '' && assocCompanySelect !== '') {
             console.log(addClientObject);
 
         }
     }
+
+
     return (
         <>
             <button ref={btnRef} onClick={onOpen} className="linear rounded-[20px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20">
-            {buttonText}
+                {buttonText}
             </button>
+
+
             <Drawer
                 isOpen={isOpen}
                 placement='right'
@@ -99,11 +106,11 @@ const AddNewRecordDrawer=({buttonText})=> {
                                 </div>
                             </div>
                             <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-4">
-                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                 Add new Client
                             </button>
                             <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-4">
-                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                 Update Client
                             </button>
                             <Button variant='outline' mr={3} onClick={onClose}>
