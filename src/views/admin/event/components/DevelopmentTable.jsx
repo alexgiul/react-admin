@@ -13,10 +13,9 @@ import {
   useTable,
 } from "react-table";
 
-//import AddNewRecordDrawer from "components/AddRecordDrawer";
 
 const DevelopmentTable = (props) => {
-  const { columnsData, tableData, onActionEditButtonClick, onActionDeleteButtonClick } = props;
+  const { columnsData, tableData, onActionEditButtonClick, onActionDeleteButtonClick, showDelete } = props;
 
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
@@ -92,13 +91,14 @@ const DevelopmentTable = (props) => {
                   {row.cells.map((cell, index) => {
                     let data = ""
 
-                    if (cell.column.Header === "Actions") {
+                    if (cell.column.Header === "Actions") {                      
                       data = (
                           <div className="flex items-center gap-2">
-                            <button onClick={() => handleEditButtonClick(row.original)}><MdCreate className="text-blue-500 h-6 w-6"/> </button>
+                            <button onClick={() => handleEditButtonClick(row.original)}><MdCreate className="text-blue-500 h-6 w-6"/> </button>                            
+                            {showDelete===true ? (
                             <button onClick={() => handleDeleteButtonClick(row.original)}><MdCancel className="text-red-500 h-6 w-6"/> </button>
+                            ): (<></>)}
                           </div>);
-                      
                     }
                     else
                       data = cell.render('Cell')

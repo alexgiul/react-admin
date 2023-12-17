@@ -2,14 +2,18 @@ import React from "react";
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
-import NFTMarketplace from "views/admin/marketplace";
+
 import Client from "views/admin/client";
+import Cashflow from "views/admin/cashflow";
+import Event from "views/admin/event";
 import Profile from "views/admin/profile";
+
+import NFTMarketplace from "views/admin/marketplace";
 import DataTables from "views/admin/tables";
-import RTLDefault from "views/rtl/default";
+//import RTLDefault from "views/rtl/default";
 
 // Auth Imports
-import SignIn from "views/auth/SignIn";
+//import SignIn from "views/auth/SignIn";
 
 // Icon Imports
 import {
@@ -17,7 +21,7 @@ import {
   MdOutlineShoppingCart,
   MdBarChart,
   MdPerson,
-  MdLock,
+  MdEvent,
 } from "react-icons/md";
 
 const routes = [
@@ -38,19 +42,18 @@ const routes = [
   },
 
   {
-    name: "NFT Marketplace",
+    name: "Cash flows",
     layout: "/admin",
-    path: "nft-marketplace",
-    icon: <MdOutlineShoppingCart className="h-6 w-6" />,
-    component: <NFTMarketplace />,
-    secondary: true,
+    path: "cashflow",
+    icon: <MdBarChart className="h-6 w-6" />,
+    component: <Cashflow />,
   },
   {
-    name: "Data Tables",
+    name: "Event",
     layout: "/admin",
-    icon: <MdBarChart className="h-6 w-6" />,
-    path: "data-tables",
-    component: <DataTables />,
+    path: "event",
+    icon: <MdEvent className="h-6 w-6" />,
+    component: <Event />,
   },
   {
     name: "Profile",
@@ -59,19 +62,23 @@ const routes = [
     icon: <MdPerson className="h-6 w-6" />,
     component: <Profile />,
   },
+
+
   {
-    name: "Sign In",
-    layout: "/auth",
-    path: "sign-in",
-    icon: <MdLock className="h-6 w-6" />,
-    component: <SignIn />,
+    name: "(Sample) NFT Marketplace",
+    layout: "/admin",
+    path: "nft-marketplace",
+    icon: <MdOutlineShoppingCart className="h-6 w-6" />,
+    component: <NFTMarketplace />,
+    secondary: true,
   },
   {
-    name: "RTL Admin",
-    layout: "/rtl",
-    path: "rtl",
-    icon: <MdHome className="h-6 w-6" />,
-    component: <RTLDefault />,
+    name: "(Sample) Data Tables",
+    layout: "/admin",
+    icon: <MdBarChart className="h-6 w-6" />,
+    path: "data-tables",
+    component: <DataTables />,
   },
+
 ];
 export default routes;

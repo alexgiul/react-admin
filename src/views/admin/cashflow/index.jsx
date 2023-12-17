@@ -12,11 +12,13 @@ import DevelopmentTable from "./components/DevelopmentTable";
 import ClientCrud from "./components/ClientCrud";
 
 // chakra
-//import InputField from "components/fields/InputField";
-//import TextField from "components/fields/InputField";
-//import Checkbox from "components/checkbox";
+import InputField from "components/fields/InputField";
+import TextField from "components/fields/InputField";
+import Checkbox from "components/checkbox";
 
-const ClientOverview = () => {
+
+
+const Cashflow = () => {
   const [data, setData] = useState([]);
 
   // State to control the visibility of the drawer
@@ -214,23 +216,20 @@ const ClientOverview = () => {
     <div className="flex w-full flex-col gap-5">
       <div className="mt-5  h-full">
         <ClientCrud data={drawerData} title={drawerTitle} visible={isDrawerVisible} onSubmit={handleOnSaveData} onClose={handleDrawerClose} />
-        <DeleteAlert data={drawerData} visible={isDeleteAlertVisible} onActionCancel={handleNoActionOnDelete} onActionDelete={handleActionOnDelete} />
+        
 
         <Card extra={"w-full h-full p-4"}>
           <div class="relative flex items-center justify-between">
             <div class="text-xl font-bold text-navy-700 dark:text-white">
               Clients
             </div>
-            <button onClick={handleNewButtonClick} className="linear rounded-[20px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20">
-              Add new record
-            </button>
 
           </div>
           <DevelopmentTable
             columnsData={columnsDataDevelopment}
             tableData={data}
             onActionEditButtonClick={handleEditButtonClick}
-            onActionDeleteButtonClick={handleDeleteButtonClick}
+            
           />
         </Card>
       </div>
@@ -239,4 +238,4 @@ const ClientOverview = () => {
   );
 };
 
-export default ClientOverview;
+export default Cashflow;
