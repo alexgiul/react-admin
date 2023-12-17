@@ -1,5 +1,5 @@
-import CardMenu from "components/card/CardMenu";
-import Card from "components/card";
+//import CardMenu from "components/card/CardMenu";
+//import Card from "components/card";
 
 import {
   MdCreate, MdCancel
@@ -12,10 +12,11 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import AddNewRecordDrawer from "components/AddRecordDrawer";
+
+//import AddNewRecordDrawer from "components/AddRecordDrawer";
 
 const DevelopmentTable = (props) => {
-  const { columnsData, tableData, onActionEditButtonClick, onActionDeleteButtonClick, setSideDrawerOpen } = props;
+  const { columnsData, tableData, onActionEditButtonClick, onActionDeleteButtonClick } = props;
 
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
@@ -46,7 +47,7 @@ const DevelopmentTable = (props) => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    page,
+    //page,
     rows,
     prepareRow,
     initialState,
@@ -54,17 +55,8 @@ const DevelopmentTable = (props) => {
   
   initialState.pageSize = 11;
   
-
-
   return (
-    <Card extra={"w-full h-full p-4"}>
-      <div class="relative flex items-center justify-between">
-        <div class="text-xl font-bold text-navy-700 dark:text-white">
-          Clients
-        </div>        
-        <AddNewRecordDrawer buttonText='Add a new record'/>
-      </div>
-
+    <>
       <div class="h-full overflow-x-scroll xl:overflow-x-hidden">
         <table
           {...getTableProps()}
@@ -127,7 +119,7 @@ const DevelopmentTable = (props) => {
           </tbody>
         </table>
       </div>
-    </Card>
+    </>
   );
 };
 

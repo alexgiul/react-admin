@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import InputField from "components/fields/InputField";
-import { FcGoogle } from "react-icons/fc";
 import Checkbox from "components/checkbox";
-//import { GoogleLogin  } from '@react-oauth/google';
 import axios from 'axios';
-import { GoogleLogin, googleLogout, useGoogleLogin } from '@react-oauth/google'
+import { useGoogleLogin } from '@react-oauth/google'
 import { useNavigate } from "react-router-dom"
+import Swal from 'sweetalert2';
 
-const responseOutput = (response) => {
-  console.log("Success", response);
-};
-const errorOutput = (error) => {
-  console.log("Error", error);
-};
 
 export default function SignIn() {
 
   const navigate = useNavigate();
 
-  const [userInfo, setUserInfo] = useState([]);
-  const [profileInfo, setProfileInfo] = useState([]);
+
+
+  const adminEmail = 'admin@example.com';
+  const adminPassword = 'qwerty';
+
+  const [email, setEmail] = useState('admin@example.com');
+  const [password, setPassword] = useState('qwerty');
 
   const login = useGoogleLogin({
 
@@ -41,11 +39,49 @@ export default function SignIn() {
     }
   });
 
-  const logOut = () => {
-    googleLogout();
-    setProfileInfo(null);
-  };
 
+  const handleLogin = e => {
+    e.preventDefault();
+    console.log(e);
+    console.log(email + " - " + password);
+    if (email === adminEmail && password === adminPassword) {
+      Swal.fire({
+        timer: 1500,
+        showConfirmButton: false,
+        willOpen: () => {
+          Swal.showLoading();
+        },
+        willClose: () => {
+          localStorage.setItem('userInfo', JSON.stringify({"sub":"116655830157832967236","name":"AChuck Norris","given_name":"Chuck","family_name":"Norris","picture":"https://lh3.googleusercontent.com/a/ACg8ocKr2_xSChXoJh707_7Io8KG9pU-54Lyd0PRfvx25nMALIg=s96-c","email":"chuck.norris@gmail.com","email_verified":true,"locale":"en"}));
+          
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Successfully logged in!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate("/admin")
+        },
+      });
+    } else {
+      Swal.fire({
+        timer: 1500,
+        showConfirmButton: false,
+        willOpen: () => {
+          Swal.showLoading();
+        },
+        willClose: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: 'Incorrect email or password.',
+            showConfirmButton: true,
+          });
+        },
+      });
+    }
+  };
 
   // useEffect(() => {
   //   fetchData();
@@ -95,54 +131,61 @@ export default function SignIn() {
           <p className="text-base text-gray-600 dark:text-white"> or </p>
           <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
         </div>
-        {/* Email */}
-        <InputField
-          variant="auth"
-          extra="mb-3"
-          label="Email*"
-          placeholder="mail@simmmple.com"
-          id="email"
-          type="text"
-        />
 
-        {/* Password */}
-        <InputField
-          variant="auth"
-          extra="mb-3"
-          label="Password*"
-          placeholder="Min. 8 characters"
-          id="password"
-          type="password"
-        />
-        {/* Checkbox */}
-        <div className="mb-4 flex items-center justify-between px-2">
-          <div className="flex items-center">
-            <Checkbox />
-            <p className="ml-2 text-sm font-medium text-navy-700 dark:text-white">
-              Keep me logged In
-            </p>
+        <form onSubmit={(e) =>handleLogin(e)}>
+          {/* Email */}
+          <InputField
+            variant="auth"
+            extra="mb-3"
+            label="Email*"
+            placeholder="mail@simmmple.com"
+            id="email"
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+
+          {/* Password */}
+          <InputField
+            variant="auth"
+            extra="mb-3"
+            label="Password*"
+            placeholder="Min. 8 characters"
+            id="password"
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}            
+          />
+          {/* Checkbox */}
+          <div className="mb-4 flex items-center justify-between px-2">
+            <div className="flex items-center">
+              <Checkbox />
+              <p className="ml-2 text-sm font-medium text-navy-700 dark:text-white">
+                Keep me logged In
+              </p>
+            </div>
+            <a
+              className="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
+              href=" "
+            >
+              Forgot Password?
+            </a>
           </div>
-          <a
-            className="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
-            href=" "
-          >
-            Forgot Password?
-          </a>
-        </div>
-        <button className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
-          Sign In
-        </button>
-        <div className="mt-4">
-          <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
-            Not registered yet?
-          </span>
-          <a
-            href=" "
-            className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
-          >
-            Create an account
-          </a>
-        </div>
+          <button className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
+            Sign In
+          </button>
+          <div className="mt-4">
+            <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
+              Not registered yet?
+            </span>
+            <a
+              href=" "
+              className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
+            >
+              Create an account
+            </a>
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -12,4 +12,5 @@ firebase init
 firebase login
 
 # deploy
+ npm run build
  firebase deploy
