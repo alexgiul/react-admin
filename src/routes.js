@@ -13,7 +13,7 @@ import DataTables from "views/admin/tables";
 //import RTLDefault from "views/rtl/default";
 
 // Auth Imports
-//import SignIn from "views/auth/SignIn";
+import SignIn from "views/auth/SignIn";
 
 // Icon Imports
 import {
@@ -22,6 +22,7 @@ import {
   MdBarChart,
   MdPerson,
   MdEvent,
+  MdLock,
 } from "react-icons/md";
 
 const routes = [
@@ -63,6 +64,13 @@ const routes = [
     component: <Profile />,
   },
 
+  {
+    name: "Sign In",
+    layout: "/auth",
+    path: "sign-in",
+    icon: <MdLock className="h-6 w-6" />,
+    component: <SignIn />,
+  },
 
   {
     name: "(Sample) NFT Marketplace",
