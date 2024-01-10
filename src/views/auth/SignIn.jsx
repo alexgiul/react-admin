@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InputField from "components/fields/InputField";
 import Checkbox from "components/checkbox";
-import axios from 'axios';
-import { useGoogleLogin } from '@react-oauth/google'
+//import axios from 'axios';
+//import { useGoogleLogin } from '@react-oauth/google'
 import { useNavigate } from "react-router-dom"
 import Swal from 'sweetalert2';
+
+import { jwtDecode } from "jwt-decode";
 
 
 export default function SignIn() {
 
   const navigate = useNavigate();
-
-
 
   const adminEmail = 'admin@example.com';
   const adminPassword = 'qwerty';
@@ -19,26 +19,11 @@ export default function SignIn() {
   const [email, setEmail] = useState('admin@example.com');
   const [password, setPassword] = useState('qwerty');
 
-  const login = useGoogleLogin({
-
-    onSuccess: async (response) => {
-      try {
-        const res = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
-          headers: {
-            Authorization: `Bearer ${response.access_token}`
-          },
-        })
-        if (res) {
-          localStorage.setItem("userInfo", JSON.stringify(res.data))
-          console.log(res.data)
-          navigate("/admin")
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  });
-
+  const googleLogin = () => {
+    var auth_provider = "google-oidc"
+    var login_url = 'http://localhost:8000/login-redirect?auth_provider=' + auth_provider
+    window.location.href = login_url
+  }
 
   const handleLogin = e => {
     e.preventDefault();
@@ -52,8 +37,8 @@ export default function SignIn() {
           Swal.showLoading();
         },
         willClose: () => {
-          localStorage.setItem('userInfo', JSON.stringify({"sub":"116655830157832967236","name":"AChuck Norris","given_name":"Chuck","family_name":"Norris","picture":"https://lh3.googleusercontent.com/a/ACg8ocKr2_xSChXoJh707_7Io8KG9pU-54Lyd0PRfvx25nMALIg=s96-c","email":"chuck.norris@gmail.com","email_verified":true,"locale":"en"}));
-          
+          localStorage.setItem('userInfo', JSON.stringify({ "sub": "116655830157832967236", "name": "AChuck Norris", "given_name": "Chuck", "family_name": "Norris", "picture": "https://lh3.googleusercontent.com/a/ACg8ocKr2_xSChXoJh707_7Io8KG9pU-54Lyd0PRfvx25nMALIg=s96-c", "email": "chuck.norris@gmail.com", "email_verified": true, "locale": "en" }));
+
 
           Swal.fire({
             icon: 'success',
@@ -82,6 +67,39 @@ export default function SignIn() {
       });
     }
   };
+
+  useEffect((event) => {
+
+    // Retrieve the JWT token from the query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const jwtToken = urlParams.get('authToken');
+
+    if (jwtToken) {
+
+      // You can now use the JWT token as needed, for example, store it in state or local storage
+      // console.log('JWT Token:', jwtToken);
+      // Optionally, you can remove the token from the URL to enhance security
+      window.history.replaceState({}, document.title, window.location.pathname);
+
+      // Decode the token
+      try {
+        const decoded = jwtDecode(jwtToken);
+        localStorage.setItem("userInfo", JSON.stringify(decoded))
+        localStorage.setItem("authToken", jwtToken)
+        navigate("/admin");
+
+      } catch (error) {
+        console.error('Error decoding token:', error.message);
+      }
+
+
+    } else {
+      console.error('JWT Token not found in the URL');
+    }
+
+
+  }, []);
+
 
   // useEffect(() => {
   //   fetchData();
@@ -117,11 +135,11 @@ export default function SignIn() {
           Sign In
         </h4>
         <p className="mb-9 ml-1 text-base text-gray-600">
-          Enter your email and password to sign in!
+          Have an account?
         </p>
 
         {/* <GoogleLogin onSuccess={responseOutput} onError={errorOutput} /> */}
-        <button onClick={() => login()} className="border-2 p-2 rounded-md flex items-center space-x-2">
+        <button onClick={() => googleLogin()} className="border-2 p-2 rounded-md flex items-center space-x-2">
           <img width="30" height="30" src="https://img.icons8.com/color/30/google-logo.png" alt="google-logo" />
           <span>Sign in with Google</span>
         </button>
@@ -132,7 +150,7 @@ export default function SignIn() {
           <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
         </div>
 
-        <form onSubmit={(e) =>handleLogin(e)}>
+        <form onSubmit={(e) => handleLogin(e)}>
           {/* Email */}
           <InputField
             variant="auth"
@@ -154,7 +172,7 @@ export default function SignIn() {
             id="password"
             type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}            
+            onChange={e => setPassword(e.target.value)}
           />
           {/* Checkbox */}
           <div className="mb-4 flex items-center justify-between px-2">

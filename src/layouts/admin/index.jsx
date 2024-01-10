@@ -15,7 +15,7 @@ export default function Admin(props) {
 
   React.useEffect(() => {
     const userInfoString = localStorage.getItem("userInfo");
-    console.log(userInfoString);
+    //console.log(userInfoString);
     if(!userInfoString) navigate("/auth");
   }, []);   //Runs only on the first render
 

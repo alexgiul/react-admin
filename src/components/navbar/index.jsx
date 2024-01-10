@@ -195,6 +195,7 @@ const Navbar = (props) => {
               className="h-10 w-10 rounded-full"
               src={userInfo ? userInfo.picture : avatar}
               alt={userInfo ? userInfo.name : "Not Logged"}
+              referrerPolicy="no-referrer"
             />
           }
           children={

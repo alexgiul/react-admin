@@ -4,9 +4,9 @@ import React from "react";
 import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
 import Client from "views/admin/client";
+import User from "views/admin/user";
 import Profile from "views/admin/profile";
 import DataTables from "views/admin/tables";
-import RTLDefault from "views/rtl/default";
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";
@@ -59,6 +59,16 @@ const routes = [
     icon: <MdPerson className="h-6 w-6" />,
     component: <Profile />,
   },
+
+  {
+    name: "Users",
+    layout: "/admin",
+    path: "users",
+    icon: <MdPerson className="h-6 w-6" />,
+    component: <User />,
+  },
+
+
   {
     name: "Sign In",
     layout: "/auth",
@@ -66,12 +76,6 @@ const routes = [
     icon: <MdLock className="h-6 w-6" />,
     component: <SignIn />,
   },
-  {
-    name: "RTL Admin",
-    layout: "/rtl",
-    path: "rtl",
-    icon: <MdHome className="h-6 w-6" />,
-    component: <RTLDefault />,
-  },
+
 ];
 export default routes;
