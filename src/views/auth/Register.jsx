@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from "react";
 import InputField from "components/fields/InputField";
-import Checkbox from "components/checkbox";
-//import axios from 'axios';
-//import { useGoogleLogin } from '@react-oauth/google'
 import { useNavigate } from "react-router-dom"
 import Swal from 'sweetalert2';
 
-import { jwtDecode } from "jwt-decode";
 
-
-export default function SignIn() {
+export default function Register() {
 
   const navigate = useNavigate();
 
@@ -20,8 +15,12 @@ export default function SignIn() {
   const [password, setPassword] = useState('qwerty');
 
   const googleLogin = () => {
+
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("authToken");
+
     var auth_provider = "google-oidc"
-    var login_url = process.env.REACT_APP_BACKEND + '/login-redirect?auth_provider=' + auth_provider
+    var login_url = process.env.REACT_APP_BACKEND + '/signup-redirect?auth_provider=' + auth_provider
     window.location.href = login_url
   }
 
@@ -68,38 +67,6 @@ export default function SignIn() {
     }
   };
 
-  useEffect((event) => {
-
-    // Retrieve the JWT token from the query parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const jwtToken = urlParams.get('authToken');
-
-    if (jwtToken) {
-
-      // You can now use the JWT token as needed, for example, store it in state or local storage
-      // console.log('JWT Token:', jwtToken);
-      // Optionally, you can remove the token from the URL to enhance security
-      window.history.replaceState({}, document.title, window.location.pathname);
-
-      // Decode the token
-      try {
-        const decoded = jwtDecode(jwtToken);
-        localStorage.setItem("userInfo", JSON.stringify(decoded))
-        localStorage.setItem("authToken", jwtToken)
-        navigate("/admin");
-
-      } catch (error) {
-        console.error('Error decoding token:', error.message);
-      }
-
-
-    } else {
-      console.error('JWT Token not found in the URL');
-    }
-
-
-  }, []);
-
 
   // useEffect(() => {
   //   fetchData();
@@ -128,23 +95,23 @@ export default function SignIn() {
 
 
   return (
-    <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start">
+    <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-center">
+
+
       {/* Sign in section */}
       <div className="mt-[10vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:max-w-[420px]">
         <h4 className="mb-2.5 text-4xl font-bold text-navy-700 dark:text-white">
-          Sign In
+          Create a new account
         </h4>
-        <p className="mb-9 ml-1 text-base text-gray-600">
-          Have an account?
-        </p>
 
-        {/* <GoogleLogin onSuccess={responseOutput} onError={errorOutput} /> */}
-        <button onClick={() => googleLogin()} className="border-2 p-2 rounded-md flex items-center space-x-2">
-          <img width="30" height="30" src="https://img.icons8.com/color/30/google-logo.png" alt="google-logo" />
-          <span>Sign in with Google</span>
-        </button>
+        <div className="mb-6 mt-6 flex items-center  gap-3 justify-center">
+          <button onClick={() => googleLogin()} className="border-2 p-2 rounded-md flex items-center space-x-2">
+            <img width="30" height="30" src="https://img.icons8.com/color/30/google-logo.png" alt="google-logo" />
+            <span>Sign up with Google</span>
+          </button>
+        </div>
 
-        <div className="mb-6 flex items-center  gap-3">
+        <div className="mb-6 mt-6 flex items-center  gap-3">
           <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
           <p className="text-base text-gray-600 dark:text-white"> or </p>
           <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
@@ -174,35 +141,11 @@ export default function SignIn() {
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
-          {/* Checkbox */}
-          <div className="mb-4 flex items-center justify-between px-2">
-            <div className="flex items-center">
-              <Checkbox />
-              <p className="ml-2 text-sm font-medium text-navy-700 dark:text-white">
-                Keep me logged In
-              </p>
-            </div>
-            <a
-              className="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
-              href=" "
-            >
-              Forgot Password?
-            </a>
-          </div>
+          
           <button className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
-            Sign In
+            Sign Up
           </button>
-          <div className="mt-4">
-            <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
-              Not registered yet?
-            </span>
-            <a
-              href="/onboarding/sign-up"
-              className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
-            >
-              Create an account
-            </a>
-          </div>
+
         </form>
       </div>
     </div>

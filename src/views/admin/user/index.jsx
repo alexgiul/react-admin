@@ -198,7 +198,7 @@ const UserOverview = () => {
 
     
     try {
-      const response = await axios.post('http://localhost:8000/refresh-token',  {},       
+      const response = await axios.post(process.env.REACT_APP_BACKEND + '/refresh-token',  {},       
       {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem("authToken"),

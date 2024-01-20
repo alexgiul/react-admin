@@ -2,7 +2,7 @@
 import React from "react";
 
 function InputField(props) {
-  const { label, id, extra, type, placeholder, variant, state, disabled, value, onChange} =
+  const { label, id, extra, type, placeholder, variant, state, disabled, value, onChange, required = false, errorMessage=null } =
     props;
 
   return (
@@ -22,6 +22,7 @@ function InputField(props) {
         name={id}
         value={value}
         onChange={onChange} 
+        required={required}
         placeholder={placeholder}
         className={`mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none ${
           disabled === true
@@ -33,6 +34,14 @@ function InputField(props) {
             : "border-gray-200 dark:!border-white/10 dark:text-white"
         }`}
       />
+
+      {/* Step 3: Display the error message conditionally */}
+              {errorMessage && (
+                   <p
+                   className="text-red-500 text-sm mt-1"
+                   dangerouslySetInnerHTML={{ __html: errorMessage }}
+                 />
+        )}
     </div>
   );
 }

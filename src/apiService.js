@@ -97,7 +97,7 @@ const getStoredAccessToken = () => {
 const refreshToken = async (accessToken) => {
   try {  
     // Make a request to your server's token refresh endpoint
-    const response = await axios.post('http://localhost:8000/refresh-token',  {},       
+    const response = await axios.post(process.env.REACT_APP_BACKEND + '/refresh-token',  {},       
     {
       headers: {
         Authorization: 'Bearer ' + accessToken,
