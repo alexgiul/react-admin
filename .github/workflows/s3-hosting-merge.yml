@@ -25,6 +25,8 @@ jobs:
         run: |
           npm ci
           npm run build:production
+        env:
+          CI: false
 
       # Step 2
       - name: Upload to S3
