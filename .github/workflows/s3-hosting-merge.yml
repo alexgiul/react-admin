@@ -1,4 +1,4 @@
-name: Deploy to AWS S3 Hosting on merge
+name: Deploy to AWS S3 Hosting (production)
 
 # Controls when the workflow will run
 on:
@@ -10,9 +10,6 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
-env:
-  REACT_APP_BACKEND: 'https://9wyoz1ei53.execute-api.eu-central-1.amazonaws.com/dev/'
 
 jobs:
   build_and_deploy:
@@ -27,9 +24,7 @@ jobs:
       - name: Install and Build
         run: |
           npm ci
-          npm run build
-        env:
-          CI: false
+          npm run build:production
 
       # Step 2
       - name: Upload to S3
