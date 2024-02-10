@@ -8,7 +8,7 @@ import { jwtDecode } from "jwt-decode";
 
 
 export default function OnboardingLayout() {
-  
+
   const [onboardingState, setOnbardingState] = useState(0);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function OnboardingLayout() {
 
 
     } else {
-      console.error('JWT Token not found in the URL');      
+      console.error('JWT Token not found in the URL');
     }
 
 
@@ -46,13 +46,12 @@ export default function OnboardingLayout() {
 
   let componentToRender;
 
-  if (onboardingState===0) {
+  if (onboardingState === 0) {
     componentToRender = <Register />;
   } else {
     componentToRender = <BasicInfo />;
   }
 
-  document.documentElement.dir = "ltr";
   return (
     <div>
       <div className="relative float-right h-full min-h-screen w-full !bg-white dark:!bg-navy-900">
@@ -65,7 +64,7 @@ export default function OnboardingLayout() {
                 {componentToRender}
 
               </div>
-              {/* <Footer /> */ }
+              {/* <Footer /> */}
             </div>
           </div>
         </main>

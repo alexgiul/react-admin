@@ -13,8 +13,8 @@ export default function Register() {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("authToken");
 
-    var auth_provider = "google-oidc"
-    var login_url = process.env.REACT_APP_BACKEND + '/signup-redirect?auth_provider=' + auth_provider
+    const auth_provider = "google-oidc"
+    const login_url = process.env.REACT_APP_BACKEND + '/signup-redirect?auth_provider=' + auth_provider
     window.location.href = login_url
   }
 
